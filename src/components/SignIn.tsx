@@ -18,6 +18,12 @@ export const SignIn: React.FC<SignInPropsType> = props => {
 		setBtnDisabled(!value);
 	};
 
+	const onKeyDownUserName = (event: React.KeyboardEvent<HTMLDivElement>) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+		}
+	};
+
 	const onClickStart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
 	};
@@ -40,6 +46,7 @@ export const SignIn: React.FC<SignInPropsType> = props => {
 						name="name"
 						autoFocus
 						onChange={onChangeUserName}
+						onKeyDown={onKeyDownUserName}
 					/>
 					<Button
 						type="submit"
