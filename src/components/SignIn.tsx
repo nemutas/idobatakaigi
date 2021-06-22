@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
 	Box, Button, Container, CssBaseline, Link, makeStyles, TextField, Typography
 } from '@material-ui/core';
@@ -11,21 +11,25 @@ export const SignIn: React.FC<SignInPropsType> = props => {
 	const { setName } = props;
 	const classes = useStyles();
 	const [btnDisabeled, setBtnDisabled] = useState(true);
+	const [username, setUsername] = useState('');
+	const isComposed = useRef(false);
 
 	const onChangeUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
-		setName(value);
+		setUsername(value);
 		setBtnDisabled(!value);
 	};
 
 	const onKeyDownUserName = (event: React.KeyboardEvent<HTMLDivElement>) => {
 		if (event.key === 'Enter') {
 			event.preventDefault();
+			!isComposed.current && setName(username);
 		}
 	};
 
 	const onClickStart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
+		setName(username);
 	};
 
 	return (
@@ -47,6 +51,12 @@ export const SignIn: React.FC<SignInPropsType> = props => {
 						autoFocus
 						onChange={onChangeUserName}
 						onKeyDown={onKeyDownUserName}
+						onCompositionStart={() => {
+							isComposed.current = true;
+						}}
+						onCompositionEnd={() => {
+							isComposed.current = false;
+						}}
 					/>
 					<Button
 						type="submit"
