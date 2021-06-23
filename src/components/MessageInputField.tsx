@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Avatar, Grid, makeStyles, TextField } from '@material-ui/core';
+import { pushMessage } from '../firebase';
 import { gravatarPath } from '../gravatar';
 
 type MessageInputFieldPropsType = {
@@ -15,7 +16,7 @@ export const MessageInputField: React.FC<MessageInputFieldPropsType> = ({ userna
 
 	const pushMessageToFirebase = () => {
 		if (!text) return;
-		console.log('pushMessageToFirebase');
+		pushMessage(username, text);
 		setText('');
 	};
 
