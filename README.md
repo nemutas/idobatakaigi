@@ -1,7 +1,7 @@
 ## アプリケーション
 https://nemutas-idobatakaigi.web.app/
 
-![qrcode_nemutas-idobatakaigi web app](https://user-images.githubusercontent.com/46724121/123235589-f9b02700-d516-11eb-808f-2dc2f3289ad6.png)
+![qrcode_nemutas-idobatakaigi web app](https://user-images.githubusercontent.com/46724121/123235881-3f6cef80-d517-11eb-8146-eaa474cdbc68.png)
 
 ## ABOUT
 こちらのコースで作成したアプリケーションです。
