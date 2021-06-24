@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import 'firebase/database';
 import firebase from 'firebase/app';
+import { useEffect, useState } from 'react';
 
 const {
 	REACT_APP_FIREBASE_API_KEY,
@@ -23,9 +25,45 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+// ======================================================
+// realtime database
+
 const realtimeDB = firebaseApp.database();
 const messagesRef = realtimeDB.ref('messages');
 
 export const pushMessage = (name: string, text: string) => {
 	messagesRef.push({ name, text });
+};
+
+type GetMessageType = {
+	key: string;
+	name: string;
+	text: string;
+};
+
+export const useFetchData = () => {
+	const [messages, setMessages] = useState<GetMessageType[]>([]);
+	useEffect(() => {
+		messagesRef
+			.orderByKey()
+			.limitToLast(15)
+			.on(
+				'value',
+				snapshot => {
+					const messages = snapshot.val();
+					if (messages) {
+						const entries = Object.entries(messages);
+						const convertMessages = entries.map(entry => {
+							const [key, nameAndText] = entry;
+							return { key, ...(nameAndText as Object) } as GetMessageType;
+						});
+						setMessages(convertMessages);
+					}
+				},
+				errorObject => {
+					console.log('The read failed: ' + errorObject.name);
+				}
+			);
+	}, [messagesRef]);
+	return { messages };
 };

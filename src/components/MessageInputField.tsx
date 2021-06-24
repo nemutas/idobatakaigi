@@ -33,10 +33,10 @@ export const MessageInputField: React.FC<MessageInputFieldPropsType> = ({ userna
 	return (
 		<div className={classes.root}>
 			<Grid container>
-				<Grid item xs={1}>
+				<Grid item xs={2} md={1}>
 					<Avatar src={avaterPath} />
 				</Grid>
-				<Grid item xs={10}>
+				<Grid item xs={8} md={10}>
 					<TextField
 						inputRef={inputEl}
 						autoFocus
@@ -52,7 +52,7 @@ export const MessageInputField: React.FC<MessageInputFieldPropsType> = ({ userna
 						}}
 					/>
 				</Grid>
-				<Grid item xs={1}>
+				<Grid item xs={2} md={1}>
 					<IconButton color="primary" disabled={!text} onClick={pushMessageToFirebase}>
 						<SendIcon />
 					</IconButton>
